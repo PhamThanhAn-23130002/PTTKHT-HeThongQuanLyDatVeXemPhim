@@ -35,17 +35,77 @@ public class MainView {
     }
 
     private void hienThiManHinhDangNhap() {
-        System.out.println("\n--- YÊU CẦU ĐĂNG NHẬP ---");
-        System.out.print("Tên đăng nhập: ");
-        String username = scanner.nextLine();
+        System.out.println("\n------------------------------------------");
+        System.out.println("            MENU TÀI KHOẢN");
+        System.out.println("------------------------------------------");
+        System.out.println("1. Đăng nhập");
+        System.out.println("2. Đăng ký tài khoản mới");
+        System.out.println("3. Đăng nhập bằng Google");
+        System.out.println("0. Thoát chương trình");
+        System.out.print("Nhập lựa chọn: ");
+
+        String choice = scanner.nextLine().trim();
+        switch (choice) {
+            case "1":
+                xuLyDangNhap();
+                break;
+            case "2":
+                xuLyDangKy();
+                break;
+            case "3":
+                xuLyDangNhapGoogle();
+                break;
+            case "0":
+                System.out.println("Bái bai nhóooo! Đang đóng hệ thống...");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại!");
+        }
+    }
+
+    private void xuLyDangNhap() {
+        System.out.println("\n--- ĐĂNG NHẬP ---");
+        System.out.print("Email: ");
+        String email = scanner.nextLine().trim();
         System.out.print("Mật khẩu: ");
         String password = scanner.nextLine();
-        Account result = accountController.login(username, password);
+
+        Account result = accountController.login(email, password);
         if (result != null) {
-            this.currentUser = result; //
-            System.out.println("Đăng nhập thành công!");
-        } else {
-            System.out.println("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại!");
+            this.currentUser = result;
+            System.out.println("Đăng nhập thành công! Xin chào " + result.getUsername()
+                    + " (" + result.getRole().getType() + ")");
+            System.out.println("Session Token: " + accountController.getCurrentSessionToken());
+        }
+    }
+
+    private void xuLyDangKy() {
+        System.out.println("\n--- ĐĂNG KÝ TÀI KHOẢN MỚI ---");
+        System.out.print("Email: ");
+        String email = scanner.nextLine().trim();
+        System.out.print("Mật khẩu (>=8 ký tự, có ký tự đặc biệt): ");
+        String password = scanner.nextLine();
+        System.out.print("Xác nhận mật khẩu: ");
+        String confirmPassword = scanner.nextLine();
+
+        boolean ok = accountController.register(email, password, confirmPassword);
+        if (ok) {
+            System.out.println("Đăng ký thành công! Vui lòng đăng nhập để sử dụng hệ thống.");
+        }
+    }
+
+    private void xuLyDangNhapGoogle() {
+        System.out.println("\n--- ĐĂNG NHẬP BẰNG GOOGLE (MOCK) ---");
+        System.out.print("Nhập email Google: ");
+        String googleEmail = scanner.nextLine().trim();
+
+        Account result = accountController.loginWithGoogle(googleEmail);
+        if (result != null) {
+            this.currentUser = result;
+            System.out.println("Đăng nhập Google thành công! Xin chào " + result.getUsername()
+                    + " (" + result.getRole().getType() + ")");
+            System.out.println("Session Token: " + accountController.getCurrentSessionToken());
         }
     }
 
