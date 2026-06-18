@@ -59,57 +59,61 @@ public class OperationView {
         }
     }
 
-            public void thucHienSoatVe() {
-                System.out.println("\n--- CHỨC NĂNG SOÁT VÉ ---");
-                System.out.print("Nhập mã vé hoặc QR Code cần soát: ");
-                String maVe = scanner.nextLine();
-                boolean isValid = soatVeController.verifyTicketCode(maVe);
-                if (isValid) {
-                    System.out.println("SOÁT VÉ THÀNH CÔNG: Vé hợp lệ! Trạng thái đã chuyển sang 'Đã sử dụng'.");
-                } else {
-                    System.out.println("LỖI: Vé giả, không tồn tại hoặc đã được quét trước đó!");
-                }
+    private void thucHienSoatVe() {
+        System.out.println("\n--- MÀN HÌNH SOÁT VÉ ---");
+        System.out.println("1. Quét mã QR trên vé");
+        System.out.println("2. Nhập mã vé thủ công");
+        System.out.print("Chọn phương thức: ");
+        String luaChon = scanner.nextLine();
+        System.out.print("Nhập mã (qrcodeData): ");
+        String qrcodeData = scanner.nextLine();
+
+        boolean result = false;
+        if (luaChon.equals("1")) {
+            result = soatVeController.verifyQrCode(qrcodeData);
+        } else {
+            result = soatVeController.verifyTicketCode(qrcodeData);
+        }
+
+        if (result) {
+            System.out.println("Soát vé thành công: Vé hợp lệ và chưa sử dụng!");
+        } else {
+            System.out.println("Cảnh báo: Vé không tồn tại hoặc đã qua sử dụng!");
+        }
+    }
+
+    private void hienThiThongKe() {
+        System.out.println("\n--- DASHBOARD THỐNG KÊ ---");
+        System.out.print("Nhập bộ lọc (filterCriteria - Phim/Ngày/Tháng): ");
+        String filterCriteria = scanner.nextLine();
+        Object chartData = thongKeController.getStatisticData(filterCriteria);
+
+        if (chartData == null) {
+            System.out.println("Thông báo: Không có dữ liệu phù hợp với bộ lọc.");
+        } else {
+            System.out.println("Hiển thị biểu đồ thống kê(Dữ liệu: " + chartData + ")");
+            System.out.print("Bạn có muốn xuất báo cáo không? (Y/N): ");
+            if (scanner.nextLine().equalsIgnoreCase("Y")) {
+                System.out.print("Chọn định dạng (PDF/Excel): ");
+                String formatType = scanner.nextLine();
+
+                String fileDownloadLink = thongKeController.exportReport(chartData, formatType);
+                System.out.println("Đã tải báo cáo về máy: " + fileDownloadLink);
             }
+        }
+    }
 
-            public void hienThiThongKe() {
-                System.out.println("\n--- THỐNG KÊ DOANH THU ---");
-                System.out.print("Nhập ngày muốn thống kê : ");
-                String thoiGian = scanner.nextLine();
-                double tongDoanhThu = thongKeController.calculateRevenue(thoiGian);
-                int tongSoVe = thongKeController.countTicketsSold(thoiGian);
+    private void thietLapGiaVe() {
+        System.out.println("\n--- MÀN HÌNH THIẾT LẬP GIÁ VÉ ---");
+        System.out.println("Nhập dữ liệu thiết lập (priceData) bao gồm Loại giá, Thời gian...");
+        System.out.print("Tên cấu hình giá (Ví dụ: Gia_Le_30_4): ");
+        String priceData = scanner.nextLine();
+        boolean isSuccess = giaVeController.savePriceConfig(priceData);
 
-                if (tongSoVe > 0) {
-                    System.out.println("KẾT QUẢ THỐNG KÊ (" + thoiGian + "):");
-                    System.out.println("- Tổng số vé bán ra : " + tongSoVe + " vé");
-                    System.out.println("- Tổng doanh thu    : " + String.format("%,.0f", tongDoanhThu) + " VNĐ");
-                } else {
-                    System.out.println("Không có dữ liệu bán vé cho thời gian này.");
-                }
-            }
-
-            private void thietLapGiaVe() {
-                System.out.println("\n--- THIẾT LẬP GIÁ VÉ ĐỘNG ---");
-                try {
-                    System.out.print("Tên quy tắc: ");
-                    String ruleName = scanner.nextLine();
-
-                    System.out.print("Khung giờ/Ngày bắt đầu: ");
-                    String startTime = scanner.nextLine();
-
-                    System.out.print("Khung giờ/Ngày kết thúc: ");
-                    String endTime = scanner.nextLine();
-
-                    System.out.print("Hệ số nhân gi: ");
-                    double multiplier = Double.parseDouble(scanner.nextLine());
-                    boolean isAdded = giaVeController.addPricingRule(ruleName, startTime, endTime, multiplier);
-
-                    if (isAdded) {
-                        System.out.println("Thiết lập giá vé thành công!");
-                    } else {
-                        System.out.println("Lỗi: Thời gian thiết lập bị trùng lặp với quy tắc khác.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Lỗi: Hệ số nhân giá phải là một số thực!");
-                }
-            }
+        if (isSuccess) {
+            System.out.println("Thông báo: Thiết lập giá thành công!");
+        } else {
+            System.out.println("Lỗi: Trùng lặp thời gian với cấu hình giá khác!");
+        }
+    }
 }
