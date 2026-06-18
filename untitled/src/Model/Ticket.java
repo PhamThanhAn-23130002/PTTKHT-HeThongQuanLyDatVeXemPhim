@@ -69,4 +69,11 @@ public abstract class Ticket {
         this.qrCode = qrCode;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

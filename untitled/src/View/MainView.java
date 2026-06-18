@@ -150,7 +150,7 @@ public class MainView {
                         System.out.println("-> Chuyển đến View Đặt vé...");
                             bookingView.displayBookingMenu();
                         break;
-                    case 4:
+                    case 5:
                         operationView.displayOperationMenu();
                         break;
                     case 0:

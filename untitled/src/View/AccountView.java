@@ -24,6 +24,13 @@ public class AccountView {
             try {
                 choice = Integer.parseInt(scanner.nextLine());
                 // Tự viết Switch-Case
+                switch (choice){
+                    case 5:
+
+                        break;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Lỗi: Vui lòng nhập số nguyên!");
             }
