@@ -19,15 +19,10 @@ public class ThongKeController {
     private Object calculateRevenue(List<Ticket> rawData) {
         return "Tổng doanh thu: 15.000.000 VNĐ";
     }
-    public String returnDataTicket(String qr){
-        String qrCode = qr;
-        return qrCode;
-    }
 
     public String exportReport(Object chartData, String formatType) {
         RevenueReport reportEntity = new RevenueReport();
         reportEntity.generatefile();
-
         return "C:/Downloads/BaoCaoDoanhThu." + formatType.toLowerCase();
     }
 }
