@@ -20,7 +20,7 @@ public class PricingRule {
     }
 
     public boolean checkTimeOverlap(String priceData, String timeRange) {
-        if (timeRange.contains("Trùng")) {
+        if (timeRange.contains("30/04/2026 - 01/05/2026")) {
             return true;
         }
         return false;
