@@ -1,12 +1,33 @@
 package Controller;
 
+import Model.RevenueReport;
+import Model.Ticket;
+
+import java.util.List;
+
 public class ThongKeController {
-    public double calculateRevenue(String thoiGian) {
-        if (thoiGian.equals("ALL")) return 15000000.0;
-        return 2500000.0;
+    public Object getStatisticData(String filterCriteria) {
+        RevenueReport reportEntity = new RevenueReport();
+        List<Ticket> rawData = reportEntity.findTicketsByFilter(filterCriteria);
+        if (rawData == null || rawData.isEmpty()) {
+            return null;
+        }
+        Object chartData = calculateRevenue(rawData);
+        return chartData;
     }
-    public int countTicketsSold(String thoiGian) {
-        if (thoiGian.equals("ALL")) return 150;
-        return 25;
+
+    private Object calculateRevenue(List<Ticket> rawData) {
+        return "Tổng doanh thu: 15.000.000 VNĐ";
+    }
+    public String returnDataTicket(String qr){
+        String qrCode = qr;
+        return qrCode;
+    }
+
+    public String exportReport(Object chartData, String formatType) {
+        RevenueReport reportEntity = new RevenueReport();
+        reportEntity.generatefile();
+
+        return "C:/Downloads/BaoCaoDoanhThu." + formatType.toLowerCase();
     }
 }

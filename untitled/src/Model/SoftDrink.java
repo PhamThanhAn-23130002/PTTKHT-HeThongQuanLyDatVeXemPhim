@@ -1,17 +1,17 @@
 package Model;
 
-public class CaramelCorn extends TicketDecorator{
+public class SoftDrink extends TicketDecorator{
     private int quantity;
 
-    public CaramelCorn(Ticket ticket, int quantity) {
+    public SoftDrink(Ticket ticket, int quantity) {
         super(ticket);
         this.quantity = quantity;
-        this.ticket.type = "Bắp Caramel";
+        this.ticket.type = "Nước ngọt có gas";
     }
 
     @Override
     public double cost() {
-        double giaBap = 55000.0 * quantity;
+        double giaBap = 45000.0 * quantity;
         return ticket.cost() + giaBap;
     }
 
