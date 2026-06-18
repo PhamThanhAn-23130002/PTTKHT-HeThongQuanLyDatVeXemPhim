@@ -9,16 +9,9 @@ import java.util.Scanner;
 
 public class OperationView {
     private Scanner scanner;
-    private SoatVeController soatVeController;
-    private ThongKeController thongKeController;
-    private GiaVeController giaVeController;
-
-    public OperationView(Scanner scanner, SoatVeController soatVeController, ThongKeController thongKeController, GiaVeController giaVeController) {
-        this.scanner = scanner;
-        this.soatVeController = soatVeController;
-        this.thongKeController = thongKeController;
-        this.giaVeController = giaVeController;
-    }
+    private SoatVeController soatVeController = new SoatVeController();
+    private ThongKeController thongKeController = new ThongKeController();
+    private GiaVeController giaVeController = new GiaVeController();
 
     public OperationView(Scanner scanner) {
         this.scanner = scanner;
