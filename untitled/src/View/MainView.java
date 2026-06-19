@@ -139,12 +139,12 @@ public class MainView {
                 choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        System.out.println("-> Chuyển đến View Quản lý Tài khoản...");
-                            accountView.displayAccountMenu();
+                        System.out.println("-> Chuyển đến View Quản lý Phim/Phòng...");
+                        cinemaManagerView.displayManagerMenu();
                         break;
                     case 2:
-                        System.out.println("-> Chuyển đến View Quản lý Phim/Phòng...");
-                            cinemaManagerView.displayManagerMenu();
+                        System.out.println("-> Chuyển đến View Quản lý Tài khoản....");
+                        accountView.displayAccountMenu();
                         break;
                     case 3:
                         System.out.println("-> Chuyển đến View Đặt vé...");
