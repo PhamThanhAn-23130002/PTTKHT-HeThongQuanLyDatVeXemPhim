@@ -102,8 +102,40 @@ public class Account {
         return null;
     }
 
-    public boolean updateProfile(String userId, Object profileData) {
-        throw new UnsupportedOperationException("UC-2.2 chưa cài đặt");
+    // UC-2.2 (Sequence): Controller -> Account.updateProfile(userId, data)
+    // Validate dữ liệu mới rồi cập nhật. Throw INVALID_PROFILE_DATA / SYSTEM_ERROR.
+    // profileData là Map<String,String> với các key: "username", "email".
+    public static boolean updateProfile(String userId, java.util.Map<String, String> profileData) {
+        Account acc = findById(userId);
+        if (acc == null) {
+            throw new RuntimeException("SYSTEM_ERROR");
+        }
+        if (profileData == null || profileData.isEmpty()) {
+            throw new RuntimeException("INVALID_PROFILE_DATA");
+        }
+
+        String newUsername = profileData.get("username");
+        String newEmail = profileData.get("email");
+
+        if (newUsername != null) {
+            String u = newUsername.trim();
+            if (u.length() < 2 || u.length() > 50) {
+                throw new RuntimeException("INVALID_PROFILE_DATA");
+            }
+            acc.username = u;
+        }
+        if (newEmail != null) {
+            String e = newEmail.trim();
+            if (!isValidEmail(e)) {
+                throw new RuntimeException("INVALID_PROFILE_DATA");
+            }
+            Account dup = findByEmail(e);
+            if (dup != null && !dup.id.equals(acc.id)) {
+                throw new RuntimeException("INVALID_PROFILE_DATA");
+            }
+            acc.email = e;
+        }
+        return true;
     }
 
     public static boolean updatePassword(String email, String password, String confirmPassword) {
