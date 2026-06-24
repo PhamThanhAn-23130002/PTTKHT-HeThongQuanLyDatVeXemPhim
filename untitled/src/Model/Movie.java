@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 public class Movie {
 
     private String movieId;
@@ -7,16 +9,25 @@ public class Movie {
     private String genre;
     private int duration;
     private String status;
+    private List<MovieScreening> movieScreeningList;
 
-    public Movie(String movieId, String movieName,
-                 String genre, int duration,
-                 String status) {
+    public Movie(String movieId, String movieName, String genre, int duration, String status) {
 
         this.movieId = movieId;
         this.movieName = movieName;
         this.genre = genre;
         this.duration = duration;
         this.status = status;
+    }
+
+    public Movie(String movieId, String movieName, String genre, int duration, String status, List<MovieScreening> movieScreeningList) {
+
+        this.movieId = movieId;
+        this.movieName = movieName;
+        this.genre = genre;
+        this.duration = duration;
+        this.status = status;
+        this.movieScreeningList = movieScreeningList;
     }
 
     public String getMovieId() {
@@ -54,4 +65,6 @@ public class Movie {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public List<MovieScreening> getMovieScreeningList() { return movieScreeningList; }
 }
