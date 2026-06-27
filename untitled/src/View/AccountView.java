@@ -1,7 +1,11 @@
 package View;
 
 import Controller.AccountController;
+import Controller.BookingHistoryController;
+import Controller.PointController;
 import Controller.ProfileController;
+import Controller.RankController;
+import Controller.RewardController;
 import Model.Account;
 
 import java.util.Scanner;
@@ -11,6 +15,10 @@ public class AccountView {
     private AccountController accountController;
     private ProfileController profileController;
     private ProfileView profileView;
+    private PointView pointView;
+    private RewardView rewardView;
+    private RankView rankView;
+    private BookingHistoryView bookingHistoryView;
 
     public AccountView(Scanner scanner) {
         this.scanner = scanner;
@@ -21,6 +29,10 @@ public class AccountView {
         this.accountController = accountController;
         this.profileController = profileController;
         this.profileView = new ProfileView(scanner, profileController);
+        this.pointView = new PointView(scanner, new PointController());
+        this.rewardView = new RewardView(scanner, new RewardController());
+        this.rankView = new RankView(scanner, new RankController());
+        this.bookingHistoryView = new BookingHistoryView(scanner, new BookingHistoryController());
     }
 
     // UC-1.2 (Sequence): View -> Controller.manageAccount(sessionId, userId)
@@ -41,11 +53,11 @@ public class AccountView {
                     + " | Hạng: " + verified.getRank()
                     + " | Điểm: " + (int) verified.getTotalPoints());
             System.out.println("------------------------------------------");
-            System.out.println("1. Quản lý hồ sơ (UC-2.2)");
-            System.out.println("2. Lịch sử đặt vé (UC-2.1)");
-            System.out.println("3. Tích điểm (UC-3.1)");
-            System.out.println("4. Đổi quà (UC-3.2)");
-            System.out.println("5. Thăng hạng (UC-3.3)");
+            System.out.println("1. Quản lý hồ sơ");
+            System.out.println("2. Lịch sử đặt vé");
+            System.out.println("3. Tích điểm");
+            System.out.println("4. Đổi quà");
+            System.out.println("5. Thăng hạng");
             System.out.println("0. Quay lại Menu Chính");
             System.out.print("Nhập lựa chọn: ");
 
@@ -56,16 +68,16 @@ public class AccountView {
                         profileView.displayProfileMenu(verified);
                         break;
                     case 2:
-                        System.out.println("-> UC-2.1 (Lịch sử đặt vé) đang phát triển...");
+                        bookingHistoryView.handleViewHistory(verified);
                         break;
                     case 3:
-                        System.out.println("-> UC-3.1 (Tích điểm) đang phát triển...");
+                        pointView.displayPointMenu(verified);
                         break;
                     case 4:
-                        System.out.println("-> UC-3.2 (Đổi quà) đang phát triển...");
+                        rewardView.handleViewRewards(verified);
                         break;
                     case 5:
-                        System.out.println("-> UC-3.3 (Thăng hạng) đang phát triển...");
+                        rankView.handleCheckRank(verified);
                         break;
                     case 0:
                         break;
