@@ -1,15 +1,30 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieScreening {
     private String id;
     private String date;
     private Room room;
     private PricingRule priceRule;
 
+    // UC-2.1: registry tĩnh để Controller tra cứu screeningId -> MovieScreening.
+    private static List<MovieScreening> screenings = new ArrayList<>();
+
     public MovieScreening(String id, String date, Room room) {
         this.id = id;
         this.date = date;
         this.room = room;
+        screenings.add(this);
+    }
+
+    public static MovieScreening findById(String screeningId) {
+        if (screeningId == null) return null;
+        for (MovieScreening s : screenings) {
+            if (screeningId.equalsIgnoreCase(s.id)) return s;
+        }
+        return null;
     }
 
     public String getId() {
