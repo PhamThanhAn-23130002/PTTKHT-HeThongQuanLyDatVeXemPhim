@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -11,6 +12,9 @@ public class Movie {
     private String status;
     private List<MovieScreening> movieScreeningList;
 
+    // UC-2.1: registry tĩnh để tra cứu Movie từ screeningId.
+    private static List<Movie> movies = new ArrayList<>();
+
     public Movie(String movieId, String movieName, String genre, int duration, String status) {
 
         this.movieId = movieId;
@@ -18,6 +22,7 @@ public class Movie {
         this.genre = genre;
         this.duration = duration;
         this.status = status;
+        movies.add(this);
     }
 
     public Movie(String movieId, String movieName, String genre, int duration, String status, List<MovieScreening> movieScreeningList) {
@@ -28,6 +33,19 @@ public class Movie {
         this.duration = duration;
         this.status = status;
         this.movieScreeningList = movieScreeningList;
+        movies.add(this);
+    }
+
+    // UC-2.1: Controller dùng để map screeningId -> Movie (lấy movieName).
+    public static Movie findByScreeningId(String screeningId) {
+        if (screeningId == null) return null;
+        for (Movie m : movies) {
+            if (m.movieScreeningList == null) continue;
+            for (MovieScreening s : m.movieScreeningList) {
+                if (screeningId.equalsIgnoreCase(s.getId())) return m;
+            }
+        }
+        return null;
     }
 
     public String getMovieId() {
