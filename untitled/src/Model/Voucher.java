@@ -21,8 +21,4 @@ public class Voucher {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public void setDiscountValue(double discountValue) { this.discountValue = discountValue; }
-
-    public double getGiaTriGiam() {
-        return this.discountValue();
-    }
 }
