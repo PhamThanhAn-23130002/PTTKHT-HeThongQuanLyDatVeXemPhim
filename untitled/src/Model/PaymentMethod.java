@@ -1,4 +1,5 @@
 package Model;
 
-public class PaymentMethod {
+public interface PaymentMethod {
+    boolean checkout(double money);
 }

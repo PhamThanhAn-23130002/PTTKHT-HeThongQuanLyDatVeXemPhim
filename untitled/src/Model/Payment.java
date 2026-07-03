@@ -1,60 +1,24 @@
 package Model;
 
-import java.time.LocalDateTime;
-
 public class Payment {
-    private String paymentId;
+    private String id;
     private double amount;
-    private LocalDateTime paymentDate;
-    private String paymentStatus;
+    private boolean status;
+    private String date;
     private PaymentMethod paymentMethod;
 
-    public Payment() {
-    }
-    public Payment(String paymentId, double amount, LocalDateTime paymentDate, String paymentStatus, PaymentMethod paymentMethod) {
-        this.paymentId = paymentId;
+    public Payment(String id, double amount, PaymentMethod paymentMethod) {
+        this.id = id;
         this.amount = amount;
-        this.paymentDate = paymentDate;
-        this.paymentStatus = paymentStatus;
         this.paymentMethod = paymentMethod;
-    }
-    public String getPaymentId() {
-        return paymentId;
+        this.status = false;
     }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
+    public boolean executePayment() {
+        this.status = paymentMethod.checkout(this.amount);
+        return this.status;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+    public double getAmount() { return amount; }
+    public void setStatus(boolean status) { this.status = status; }
 }

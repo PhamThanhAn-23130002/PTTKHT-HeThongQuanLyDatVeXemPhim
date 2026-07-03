@@ -1,64 +1,24 @@
 package Model;
-
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Voucher {
+    private Date expDate;
+    private String code;
+    private double discountValue;
+    private int quantity;
 
-    private String maVoucher;
-    private double giaTriGiam;
-    private double donHangToiThieu;
-    private LocalDate ngayHetHan;
-    private boolean trangThai;
-
-
-    public Voucher() {
+    public Voucher(String code, double discountValue, int quantity, Date expDate) {
+        this.code = code;
+        this.discountValue = discountValue;
+        this.quantity = quantity;
+        this.expDate = expDate;
     }
 
-    public Voucher(String maVoucher, double giaTriGiam, double donHangToiThieu, LocalDate ngayHetHan, boolean trangThai) {
-        this.maVoucher = maVoucher;
-        this.giaTriGiam = giaTriGiam;
-        this.donHangToiThieu = donHangToiThieu;
-        this.ngayHetHan = ngayHetHan;
-        this.trangThai = trangThai;
-    }
+    public void decreaseQuantity() { if (quantity > 0) quantity--; }
 
-    public String getMaVoucher() {
-        return maVoucher;
-    }
-
-    public void setMaVoucher(String maVoucher) {
-        this.maVoucher = maVoucher;
-    }
-
-    public double getGiaTriGiam() {
-        return giaTriGiam;
-    }
-
-    public void setGiaTriGiam(double giaTriGiam) {
-        this.giaTriGiam = giaTriGiam;
-    }
-
-    public double getDonHangToiThieu() {
-        return donHangToiThieu;
-    }
-
-    public void setDonHangToiThieu(double donHangToiThieu) {
-        this.donHangToiThieu = donHangToiThieu;
-    }
-
-    public LocalDate getNgayHetHan() {
-        return ngayHetHan;
-    }
-
-    public void setNgayHetHan(LocalDate ngayHetHan) {
-        this.ngayHetHan = ngayHetHan;
-    }
-
-    public boolean isTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
-    }
+    public String getCode() { return code; }
+    public double getDiscountValue() { return discountValue; }
+    public int getQuantity() { return quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setDiscountValue(double discountValue) { this.discountValue = discountValue; }
 }

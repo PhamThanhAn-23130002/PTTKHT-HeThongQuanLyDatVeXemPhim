@@ -1,4 +1,5 @@
 package Model;
+import java.util.List;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,27 +43,27 @@ public class Order {
         scList3.add(sc103);
         new Movie("M103", "Mai 2", "Tâm lý", 130, "Sắp chiếu", scList3);
 
-        // ----- Các đơn mẫu cho U002 (user1) -----
-        Order od1 = new Order("OD001",
-                new BasicTicket("T001", "A1", "R01", "QR-OD001", false),
-                2, "PAID", "U002", "SC101");
-        od1.addPayment(new Payment("PM001", 120000,
-                LocalDateTime.of(2026, 6, 20, 19, 30), "SUCCESS", null));
-        orders.add(od1);
+//         // ----- Các đơn mẫu cho U002 (user1) -----
+//         Order od1 = new Order("OD001",
+//                 new BasicTicket("T001", "A1", "R01", "QR-OD001", false),
+//                 2, "PAID", "U002", "SC101");
+//         od1.addPayment(new Payment("PM001", 120000,
+//                 LocalDateTime.of(2026, 6, 20, 19, 30), "SUCCESS", null));
+//         orders.add(od1);
 
-        Order od2 = new Order("OD002",
-                new BasicTicket("T002", "B3", "R02", "QR-OD002", false),
-                1, "PAID", "U002", "SC102");
-        od2.addPayment(new Payment("PM002", 80000,
-                LocalDateTime.of(2026, 6, 22, 10, 5), "SUCCESS", null));
-        orders.add(od2);
+//         Order od2 = new Order("OD002",
+//                 new BasicTicket("T002", "B3", "R02", "QR-OD002", false),
+//                 1, "PAID", "U002", "SC102");
+//         od2.addPayment(new Payment("PM002", 80000,
+//                 LocalDateTime.of(2026, 6, 22, 10, 5), "SUCCESS", null));
+//         orders.add(od2);
 
-        Order od3 = new Order("OD003",
-                new Student_OldTicket("T003", "C5", "R03", "QR-OD003", false),
-                1, "CANCELED", "U002", "SC103");
-        od3.addPayment(new Payment("PM003", 45000,
-                LocalDateTime.of(2026, 6, 23, 14, 0), "REFUNDED", null));
-        orders.add(od3);
+//         Order od3 = new Order("OD003",
+//                 new Student_OldTicket("T003", "C5", "R03", "QR-OD003", false),
+//                 1, "CANCELED", "U002", "SC103");
+//         od3.addPayment(new Payment("PM003", 45000,
+//                 LocalDateTime.of(2026, 6, 23, 14, 0), "REFUNDED", null));
+//         orders.add(od3);
     }
 
     public Order() {

@@ -1,4 +1,8 @@
 package Model;
 
-public class CreditCard {
+public class CreditCard implements PaymentMethod {
+    @Override
+    public boolean checkout(double money) {
+        return true;
+    }
 }
