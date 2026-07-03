@@ -14,8 +14,7 @@ public class CheckOutView {
         this.scanner = scanner;
     }
 
-    public void displayCheckOutMenu(Object donHang) {
-        Order order = (Order) donHang;
+    public void displayCheckOutMenu(Order donHang) {
         int choice = -1;
         while (choice != 0) {
             System.out.println("==========================================");
@@ -25,7 +24,7 @@ public class CheckOutView {
             String vCode = scanner.nextLine();
             Voucher v = voucherController.findVoucherByCode(vCode);
 
-            double total = checkoutController.calculateTotalAmount(order, v);
+            double total = checkoutController.calculateTotalAmount(donHang, v);
             System.out.println("Tổng tiền thanh toán: " + total);
 
             System.out.println("1. Thanh toán bằng MoMo (E_Wallet)");
@@ -55,7 +54,7 @@ public class CheckOutView {
                         continue;
                 }
 
-                if (checkoutController.processPayment(order, v, method)) {
+                if (checkoutController.processPayment(donHang, v, method)) {
                     System.out.println(">> Đang xử lý giao dịch... THÀNH CÔNG! Đã xuất vé.");
                     choice = 0;
                 } else {

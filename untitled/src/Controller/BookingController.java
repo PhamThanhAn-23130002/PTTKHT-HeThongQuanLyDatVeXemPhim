@@ -53,7 +53,7 @@ public class BookingController {
         return checkThanhCong;
     }
 
-    public Object createOrder(List<String> seatIds) {
-        return "Order_Data";
+    public Order createOrder(List<String> seatIds) {
+        return null;
     }
 }

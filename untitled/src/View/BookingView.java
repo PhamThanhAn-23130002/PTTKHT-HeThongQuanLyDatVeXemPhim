@@ -3,6 +3,7 @@ package View;
 import Controller.BookingController;
 import Model.Movie;
 import Model.MovieScreening;
+import Model.Order;
 import Model.Seat;
 
 import java.util.Arrays;
@@ -87,7 +88,7 @@ public class BookingView {
 
         if (holdSuccess) {
             System.out.println("Thành công: Cập nhật ghế sang [Đang giữ]. Đồng hồ đếm ngược 10:00 đã kích hoạt!");
-            Object donHang = bookingController.createOrder(selectedSeatIds);
+            Order donHang = bookingController.createOrder(selectedSeatIds);
             System.out.println("Hệ thống: Đã khởi tạo đơn hàng .");
             System.out.println(">> Bạn đã hoàn thành chọn vé. Sẵn sàng chuyển hướng sang bước Thanh Toán!");
             CheckOutView thanhToanView = new CheckOutView(scanner);
