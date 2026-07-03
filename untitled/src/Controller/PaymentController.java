@@ -8,7 +8,7 @@ public class PaymentController {
     public double tinhTongThanhToan(double giaVe, Voucher voucher) {
         double tongTien = giaVe;
         if (voucher != null) {
-            tongTien -= voucher.getGiaTriGiam();
+            tongTien -= voucher.getDiscountValue();
         }
         return Math.max(tongTien, 0); // Đảm bảo tiền không âm
     }
