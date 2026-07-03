@@ -14,14 +14,13 @@ public class CheckOutView {
         this.scanner = scanner;
     }
 
-    public void displayCheckOutMenu(Order order) {
+    public void displayCheckOutMenu(Object donHang) {
+        Order order = (Order) donHang;
         int choice = -1;
         while (choice != 0) {
             System.out.println("==========================================");
             System.out.println("          XÁC NHẬN VÀ THANH TOÁN          ");
             System.out.println("==========================================");
-
-            // Bỏ qua dòng in Order_Data cũ đi để menu sạch sẽ hơn
             System.out.print("Nhập mã Voucher (Enter để bỏ qua): ");
             String vCode = scanner.nextLine();
             Voucher v = voucherController.findVoucherByCode(vCode);
@@ -39,12 +38,11 @@ public class CheckOutView {
 
                 if (choice == 0) {
                     System.out.println(">> Đã hủy giao dịch.");
-                    break; // Thoát vòng lặp ngay lập tức
+                    break;
                 }
 
                 PaymentMethod method = null;
 
-                // Áp dụng Switch-Case để chặn nhập bậy (3, 4, 5...)
                 switch (choice) {
                     case 1:
                         method = new E_Wallet();

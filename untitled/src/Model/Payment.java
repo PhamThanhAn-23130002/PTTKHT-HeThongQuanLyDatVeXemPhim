@@ -21,4 +21,8 @@ public class Payment {
 
     public double getAmount() { return amount; }
     public void setStatus(boolean status) { this.status = status; }
+
+    public String getPaymentId() {
+        return this.id;
+    }
 }
