@@ -128,6 +128,12 @@ public class Order {
     }
 
     public static List<Order> getAllOrders() { return orders; }
+    public double getBaseCost() {
+        if (ticket != null) {
+            return ticket.cost();
+        }
+        return 0; // tra ve 0 neu chua co ve'
+    }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
