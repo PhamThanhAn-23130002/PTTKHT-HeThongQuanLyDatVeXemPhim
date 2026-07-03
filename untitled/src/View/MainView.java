@@ -65,7 +65,7 @@ public class MainView {
                 xuLyQuenMatKhau();
                 break;
             case "0":
-                System.out.println("Bái bai nhóooo! Đang đóng hệ thống...");
+                System.out.println(" Đang đóng hệ thống, xin hẹn gặp lại!");
                 System.exit(0);
                 break;
             default:
