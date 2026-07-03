@@ -21,6 +21,7 @@ public class CheckOutView {
             System.out.println("          XÁC NHẬN VÀ THANH TOÁN          ");
             System.out.println("==========================================");
 
+            // Bỏ qua dòng in Order_Data cũ đi để menu sạch sẽ hơn
             System.out.print("Nhập mã Voucher (Enter để bỏ qua): ");
             String vCode = scanner.nextLine();
             Voucher v = voucherController.findVoucherByCode(vCode);
@@ -28,23 +29,43 @@ public class CheckOutView {
             double total = checkoutController.calculateTotalAmount(order, v);
             System.out.println("Tổng tiền thanh toán: " + total);
 
-            System.out.println("1. Thanh toán MoMo | 2. Thanh toán Visa");
-            System.out.print("Lựa chọn: ");
+            System.out.println("1. Thanh toán bằng MoMo (E_Wallet)");
+            System.out.println("2. Thanh toán bằng Thẻ Visa (CreditCard)");
+            System.out.println("0. Hủy giao dịch và quay lại");
+            System.out.print("Nhập lựa chọn: ");
 
             try {
                 choice = Integer.parseInt(scanner.nextLine());
-                if (choice == 0) break;
 
-                PaymentMethod method = (choice == 1) ? new E_Wallet() : new CreditCard();
+                if (choice == 0) {
+                    System.out.println(">> Đã hủy giao dịch.");
+                    break; // Thoát vòng lặp ngay lập tức
+                }
+
+                PaymentMethod method = null;
+
+                // Áp dụng Switch-Case để chặn nhập bậy (3, 4, 5...)
+                switch (choice) {
+                    case 1:
+                        method = new E_Wallet();
+                        break;
+                    case 2:
+                        method = new CreditCard();
+                        break;
+                    default:
+                        System.out.println(">> Lựa chọn không hợp lệ! Vui lòng chọn 1 hoặc 2.");
+                        continue;
+                }
 
                 if (checkoutController.processPayment(order, v, method)) {
-                    System.out.println(">> Giao dịch thành công!");
+                    System.out.println(">> Đang xử lý giao dịch... THÀNH CÔNG! Đã xuất vé.");
                     choice = 0;
                 } else {
-                    System.out.println(">> Giao dịch thất bại!");
+                    System.out.println(">> Giao dịch thất bại! Vui lòng thử lại.");
                 }
-            } catch (Exception e) {
-                System.out.println("Lỗi nhập liệu!");
+
+            } catch (NumberFormatException e) {
+                System.out.println(">> Lỗi: Vui lòng nhập số nguyên!");
             }
         }
     }
