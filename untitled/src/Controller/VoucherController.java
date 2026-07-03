@@ -1,22 +1,43 @@
 package Controller;
 
 import Model.Voucher;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VoucherController {
+    private List<Voucher> voucherList = new ArrayList<>();
 
-    public boolean kiemTraVoucher(Voucher voucher, double tongDonHang) {
-        if (voucher == null) return false;
+    public void addVoucher(Voucher v) {
+        voucherList.add(v);
+    }
 
-        if (tongDonHang >= voucher.getDonHangToiThieu() && voucher.isTrangThai()) {
+    public Voucher findVoucherByCode(String code) {
+        for (Voucher v : voucherList) {
+            if (v.getCode().equals(code)) return v;
+        }
+        return null;
+    }
+
+    public boolean updateVoucher(String code, double newDiscountValue, int newQuantity) {
+        Voucher v = findVoucherByCode(code);
+        if (v != null) {
+            v.setDiscountValue(newDiscountValue);
+            v.setQuantity(newQuantity);
             return true;
         }
         return false;
     }
 
-    public double tinhSoTienGiam(Voucher voucher, double tongDonHang) {
-        if (kiemTraVoucher(voucher, tongDonHang)) {
-            return voucher.getGiaTriGiam();
+    public boolean deleteVoucher(String code) {
+        Voucher v = findVoucherByCode(code);
+        if (v != null) {
+            voucherList.remove(v);
+            return true;
         }
-        return 0;
+        return false;
+    }
+
+    public List<Voucher> getAllVouchers() {
+        return voucherList;
     }
 }
