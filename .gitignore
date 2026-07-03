@@ -1,0 +1,9 @@
+# Chặn các thư mục cấu hình và file build
+.idea/
+out/
+untitled/out/
+
+# Chặn các file cấu hình IDE
+*.iml
+.classpath
+.project
